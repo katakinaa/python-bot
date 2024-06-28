@@ -1,8 +1,10 @@
 import asyncio
-from aiogram import Bot
 import logging
-
+from aiogram import Bot
 from config import bot, dp, database
+
+from handlers.echo import echo_router
+from handlers.survey import survey_router
 
 
 async def on_startup(bot: Bot):
@@ -10,8 +12,9 @@ async def on_startup(bot: Bot):
 
 
 async def main():
-
     dp.startup.register(on_startup)
+    dp.include_router(survey_router)
+    dp.include_router(echo_router)
     # запуск бота
     await dp.start_polling(bot)
 

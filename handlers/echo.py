@@ -1,11 +1,16 @@
 from aiogram import Router, types
 
-
 echo_router = Router()
+
+
+def reverse_words(sentence):
+    words = sentence.split()
+    reversed_sentence = ' '.join(reversed(words))
+    return reversed_sentence
+
 
 @echo_router.message()
 async def echo(message: types.Message):
     # logging.info(message)
-    await message.answer("Я не понимаю вас, поробуйте следующие команды: \n"
-    "/start - начать диалог\n"
-    "/picture - отправить картинку")
+    reversed_sentence = reverse_words(message.text)
+    await message.answer(reversed_sentence)
